@@ -1,0 +1,19 @@
+{
+    "authors": [
+        {
+            "name": "Codexpert",
+            "email": "hi@codexpert.io"
+        }
+    ],
+    "require": {
+        "codexpert/plugin": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Codexpert\\DiditVerification\\" : "classes/",
+            "Codexpert\\DiditVerification\\App\\" : "app/",
+            "Codexpert\\DiditVerification\\API\\" : "api/"
+        },
+        "files": [ "inc/functions.php" ]
+    }
+}
