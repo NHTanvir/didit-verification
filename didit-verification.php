@@ -189,6 +189,7 @@ final class Plugin {
 		 * AJAX related hooks
 		 */
 		$ajax = new App\AJAX( $this->plugin );
+		$ajax->nopriv( 'cubewp_submit_user_register', 'cubewp_submit_user_register', 5 );
 	}
 
 	/**

@@ -56,8 +56,8 @@ class Settings extends Base {
 					// 'color'		=> '#4c3f93',
 					'sticky'	=> false,
 					'fields'    => [
-						'sample_text' => [
-							'id'        => 'sample_text',
+						'didit_api_key' => [
+							'id'        => 'didit_api_key',
 							'label'     => __( 'Text Field', 'didit-verification' ),
 							'type'      => 'text',
 							'desc'      => __( 'This is a text field.', 'didit-verification' ),
