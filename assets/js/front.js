@@ -8,12 +8,12 @@ let cd_modal = ( show = true ) => {
 
 jQuery( function ( $ ) {
 	jQuery( document ).ready( function ( $ ) {
-		var otp = Didit_Verification.otp;
-		var phone = Didit_Verification.phone;
-		var otpField = $( '#' + otp ).closest( '.cwp-field-container' );
-		otpField.hide();
+		var otp 		= Didit_Verification.otp_field;
+		var phone 		= Didit_Verification.phone;
+		var otpField 	= $('[data-id="' + otp + '"]');
+		var otpSent 	= false;
 
-		var otpSent = false;
+		otpField.hide();
 
 		$( document ).ajaxSend( function ( event, jqxhr, settings ) {
 			var isRegistrationCall = false;
