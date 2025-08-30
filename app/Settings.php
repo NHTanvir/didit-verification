@@ -119,26 +119,6 @@ class Settings extends Base {
 							'disabled'  => false, // true|false
 							'multiple'  => false, // true|false
 						],
-						'subscriber_phone' => [
-							'id'      => 'subscriber_phone',
-							'label'     => __( 'Select subscriber phone', 'didit-verification' ),
-							'type'      => 'select',
-							'desc'      => __( 'This is a select field.', 'didit-verification' ),
-							// 'class'     => '',
-							'options'   => $subscriber_fields,
-							'disabled'  => false, // true|false
-							'multiple'  => false, // true|false
-						],
-						'subscriber_otp' => [
-							'id'      => 'subscriber_otp',
-							'label'     => __( 'Select subscriber otp', 'didit-verification' ),
-							'type'      => 'select',
-							'desc'      => __( 'This is a select field.', 'didit-verification' ),
-							// 'class'     => '',
-							'options'   => $subscriber_fields,
-							'disabled'  => false, // true|false
-							'multiple'  => false, // true|false
-						],
 						'sample_number' => [
 							'id'      => 'sample_number',
 							'label'     => __( 'Number Field', 'didit-verification' ),

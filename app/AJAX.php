@@ -23,12 +23,15 @@ class AJAX extends Base {
     private $verify_otp_url = 'https://verification.didit.me/v2/phone/check/';
 
 	public function cubewp_submit_user_register() {
-		$phone_number = isset( $_POST['cwp_user_register']['custom_fields']['cwp_field_427081562021'] )
-			? sanitize_text_field( wp_unslash( $_POST['cwp_user_register']['custom_fields']['cwp_field_427081562021'] ) )
+		$otp_field = Helper::get_option( 'didit-verification_basic', 'author_otp' );
+		$phone_field = Helper::get_option( 'didit-verification_basic', 'author_phone' );
+
+		$phone_number = isset( $_POST['cwp_user_register']['custom_fields'][$phone_field] )
+			? sanitize_text_field( wp_unslash( $_POST['cwp_user_register']['custom_fields'][$phone_field] ) )
 			: '';
 
-		$otp_code = isset( $_POST['cwp_user_register']['custom_fields']['cwp_field_683075130097'] )
-			? sanitize_text_field( wp_unslash( $_POST['cwp_user_register']['custom_fields']['cwp_field_683075130097'] ) )
+		$otp_code = isset( $_POST['cwp_user_register']['custom_fields'][$otp_field] )
+			? sanitize_text_field( wp_unslash( $_POST['cwp_user_register']['custom_fields'][$otp_field] ) )
 			: '';
 
 		if ( empty( $phone_number ) ) {

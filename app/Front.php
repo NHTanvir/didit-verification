@@ -43,9 +43,13 @@ class Front extends Base {
 
 		wp_enqueue_script( $this->slug, plugins_url( "/assets/js/front{$min}.js", Didit_Verification ), [ 'jquery' ], $this->version, true );
 		
+		$otp_field = Helper::get_option( 'didit-verification_basic', 'author_otp' );
+		$phone_field = Helper::get_option( 'didit-verification_basic', 'author_phone' );
+		
 		$localized = [
 			'ajaxurl'	=> admin_url( 'admin-ajax.php' ),
 			'_wpnonce'	=> wp_create_nonce(),
+			'otp_field' => $otp_field
 		];
 		wp_localize_script( $this->slug, 'Didit_Verification', apply_filters( "{$this->slug}-localized", $localized ) );
 	}

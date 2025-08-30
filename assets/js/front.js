@@ -8,7 +8,9 @@ let cd_modal = ( show = true ) => {
 
 jQuery( function ( $ ) {
 	jQuery( document ).ready( function ( $ ) {
-		var otpField = $( '#cwp_field_523312282631' ).closest( '.cwp-field-container' );
+		var otp = Didit_Verification.otp;
+		var phone = Didit_Verification.phone;
+		var otpField = $( '#' + otp ).closest( '.cwp-field-container' );
 		otpField.hide();
 
 		var otpSent = false;
@@ -19,14 +21,17 @@ jQuery( function ( $ ) {
 			var phoneValue = '';
 
 			if ( settings.data instanceof FormData ) {
-				if ( settings.data.has( 'action' ) && settings.data.get( 'action' ) === 'cubewp_submit_user_register' ) {
+				if (
+					settings.data.has( 'action' ) &&
+					settings.data.get( 'action' ) === 'cubewp_submit_user_register'
+				) {
 					isRegistrationCall = true;
 
-					if ( settings.data.has( 'cwp_user_register[custom_fields][cwp_field_683075130097]' ) ) {
-						otpValue = settings.data.get( 'cwp_user_register[custom_fields][cwp_field_683075130097]' );
+					if ( settings.data.has( `cwp_user_register[custom_fields][${otp}]` ) ) {
+						otpValue = settings.data.get( `cwp_user_register[custom_fields][${otp}]` );
 					}
-					if ( settings.data.has( 'cwp_user_register[custom_fields][cwp_field_427081562021]' ) ) {
-						phoneValue = settings.data.get( 'cwp_user_register[custom_fields][cwp_field_427081562021]' );
+					if ( settings.data.has( `cwp_user_register[custom_fields][${phone}]` ) ) {
+						phoneValue = settings.data.get( `cwp_user_register[custom_fields][${phone}]` );
 					}
 				}
 			} else if ( typeof settings.data === 'string' ) {
@@ -35,10 +40,10 @@ jQuery( function ( $ ) {
 
 					var formData = new URLSearchParams( settings.data );
 					for ( let [ key, value ] of formData.entries() ) {
-						if ( key === 'cwp_user_register[custom_fields][cwp_field_683075130097]' ) {
+						if ( key === `cwp_user_register[custom_fields][${otp}]` ) {
 							otpValue = value;
 						}
-						if ( key === 'cwp_user_register[custom_fields][cwp_field_427081562021]' ) {
+						if ( key === `cwp_user_register[custom_fields][${phone}]` ) {
 							phoneValue = value;
 						}
 					}
