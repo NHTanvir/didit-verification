@@ -37,6 +37,39 @@ class Settings extends Base {
 			'Active Plugins'			=> get_option( 'active_plugins' ),
 		];
 
+
+		$register_form_data = get_option( 'cwp_user_register_form' );
+		$author_fields     = array();
+		$subscriber_fields = array();
+
+		if (
+			! empty( $register_form_data['author']['groups'] ) &&
+			is_array( $register_form_data['author']['groups'] )
+		) {
+			$author_group  		= reset( $register_form_data['author']['groups'] );
+			$author_fields_data = isset( $author_group['fields'] ) ? $author_group['fields'] : array();
+
+			foreach ( $author_fields_data as $field_key => $field_data ) {
+				if ( isset( $field_data['label'] ) && strpos( $field_key, 'cwp_field_' ) === 0 ) {
+					$author_fields[ $field_key ] = $field_data['label'];
+				}
+			}
+		}
+
+		if (
+			! empty( $register_form_data['subscriber']['groups'] ) &&
+			is_array( $register_form_data['subscriber']['groups'] )
+		) {
+			$subscriber_group  			= reset( $register_form_data['subscriber']['groups'] );
+			$subscriber_fields_data 	= isset( $subscriber_group['fields'] ) ? $subscriber_group['fields'] : array();
+
+			foreach ( $subscriber_fields_data as $field_key => $field_data ) {
+				if ( isset( $field_data['label'] ) && strpos( $field_key, 'cwp_field_' ) === 0 ) {
+					$subscriber_fields[ $field_key ] = $field_data['label'];
+				}
+			}
+		}
+
 		$settings = [
 			'id'            => $this->slug,
 			'label'         => $this->name,
@@ -58,13 +91,53 @@ class Settings extends Base {
 					'fields'    => [
 						'didit_api_key' => [
 							'id'        => 'didit_api_key',
-							'label'     => __( 'Text Field', 'didit-verification' ),
+							'label'     => __( 'API Key', 'didit-verification' ),
 							'type'      => 'text',
-							'desc'      => __( 'This is a text field.', 'didit-verification' ),
+							'desc'      => __( 'This is a api key.', 'didit-verification' ),
 							// 'class'     => '',
 							'default'   => 'Hello World!',
 							'readonly'  => false, // true|false
 							'disabled'  => false, // true|false
+						],
+						'author_phone' => [
+							'id'      => 'author_phone',
+							'label'     => __( 'Select author phone', 'didit-verification' ),
+							'type'      => 'select',
+							'desc'      => __( 'This is a select field.', 'didit-verification' ),
+							// 'class'     => '',
+							'options'   => $author_fields,
+							'disabled'  => false, // true|false
+							'multiple'  => false, // true|false
+						],
+						'author_otp' => [
+							'id'      => 'author_otp',
+							'label'     => __( 'Select author otp', 'didit-verification' ),
+							'type'      => 'select',
+							'desc'      => __( 'This is a select field.', 'didit-verification' ),
+							// 'class'     => '',
+							'options'   => $author_fields,
+							'disabled'  => false, // true|false
+							'multiple'  => false, // true|false
+						],
+						'subscriber_phone' => [
+							'id'      => 'subscriber_phone',
+							'label'     => __( 'Select subscriber phone', 'didit-verification' ),
+							'type'      => 'select',
+							'desc'      => __( 'This is a select field.', 'didit-verification' ),
+							// 'class'     => '',
+							'options'   => $subscriber_fields,
+							'disabled'  => false, // true|false
+							'multiple'  => false, // true|false
+						],
+						'subscriber_otp' => [
+							'id'      => 'subscriber_otp',
+							'label'     => __( 'Select subscriber otp', 'didit-verification' ),
+							'type'      => 'select',
+							'desc'      => __( 'This is a select field.', 'didit-verification' ),
+							// 'class'     => '',
+							'options'   => $subscriber_fields,
+							'disabled'  => false, // true|false
+							'multiple'  => false, // true|false
 						],
 						'sample_number' => [
 							'id'      => 'sample_number',
@@ -131,21 +204,6 @@ class Settings extends Base {
 							],
 							'default'   => 'item_2',
 							'disabled'  => false, // true|false
-						],
-						'sample_select' => [
-							'id'      => 'sample_select',
-							'label'     => __( 'Select Field', 'didit-verification' ),
-							'type'      => 'select',
-							'desc'      => __( 'This is a select field.', 'didit-verification' ),
-							// 'class'     => '',
-							'options'   => [
-								'option_1'  => 'Option One',
-								'option_2'  => 'Option Two',
-								'option_3'  => 'Option Three',
-							],
-							'default'   => 'option_2',
-							'disabled'  => false, // true|false
-							'multiple'  => false, // true|false
 						],
 						'sample_multiselect' => [
 							'id'      => 'sample_multiselect',
