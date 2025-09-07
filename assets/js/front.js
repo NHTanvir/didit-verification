@@ -261,22 +261,22 @@ jQuery(function($) {
                             $('.cwp-from-author .submit-btn').val('Verify OTP & Register');
                             
                             // Add resend button for author form
-                            if (!$('.cwp-from-author .resend-otp-btn').length) {
-                                var resendButton = $('<button type="button" class="resend-otp-btn" style="margin-left: 10px; padding: 5px 10px; background: #007cba; color: white; border: none; border-radius: 3px; cursor: pointer;">Resend OTP</button>');
-                                authorOtpField.append(resendButton);
+							if (!$('.cwp-from-author .resend-otp-btn').length) {
+								var resendButton = $('<button type="button" class="resend-otp-btn">Resend OTP</button>');
+								authorOtpField.after(resendButton);
 
-                                resendButton.on('click', function(e) {
-                                    e.preventDefault();
-                                    $(this).prop('disabled', true).text('Sending...');
-                                    otpSentAuthor = false;
-                                    authorOtpField.find('input').val('');
-                                    $('.cwp-from-author .submit-btn').val('Register').click();
-                                    
-                                    setTimeout(function() {
-                                        resendButton.prop('disabled', false).text('Resend OTP');
-                                    }, 3000);
-                                });
-                            }
+								resendButton.on('click', function(e) {
+									e.preventDefault();
+									$(this).prop('disabled', true).text('Sending...');
+									otpSentAuthor = false;
+									authorOtpField.find('input').val('');
+									$('.cwp-from-author .submit-btn').val('Register').click();
+									
+									setTimeout(function() {
+										resendButton.prop('disabled', false).text('Resend OTP');
+									}, 3000);
+								});
+							}
                             showMessage(currentForm, 'OTP sent successfully to your phone', 'success');
                             
                         } else if (currentForm === 'subscriber') {
@@ -285,22 +285,22 @@ jQuery(function($) {
                             $('.cwp-from-subscriber .submit-btn').val('Verify OTP & Register');
                             
                             // Add resend button for subscriber form
-                            if (!$('.cwp-from-subscriber .resend-otp-btn').length) {
-                                var resendButton = $('<button type="button" class="resend-otp-btn" style="margin-left: 10px; padding: 5px 10px; background: #007cba; color: white; border: none; border-radius: 3px; cursor: pointer;">Resend OTP</button>');
-                                subscriberOtpField.append(resendButton);
+					if (!$('.cwp-from-subscriber .resend-otp-btn').length) {
+						var resendButton = $('<button type="button" class="resend-otp-btn">Resend OTP</button>');
+						subscriberOtpField.after(resendButton);
 
-                                resendButton.on('click', function(e) {
-                                    e.preventDefault();
-                                    $(this).prop('disabled', true).text('Sending...');
-                                    otpSentSubscriber = false;
-                                    subscriberOtpField.find('input').val('');
-                                    $('.cwp-from-subscriber .submit-btn').val('Register').click();
-                                    
-                                    setTimeout(function() {
-                                        resendButton.prop('disabled', false).text('Resend OTP');
-                                    }, 3000);
-                                });
-                            }
+						resendButton.on('click', function(e) {
+							e.preventDefault();
+							$(this).prop('disabled', true).text('Sending...');
+							otpSentSubscriber = false;
+							subscriberOtpField.find('input').val('');
+							$('.cwp-from-subscriber .submit-btn').val('Register').click();
+							
+							setTimeout(function() {
+								resendButton.prop('disabled', false).text('Resend OTP');
+							}, 3000);
+						});
+					}
                             showMessage(currentForm, 'OTP sent successfully to your phone', 'success');
                         }
                     } else if (response.type === 'success' && response.redirectURL) {
