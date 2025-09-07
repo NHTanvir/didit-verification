@@ -69,7 +69,7 @@ class AJAX extends Base {
             );
         }
 
-        $formatted_phone = $phone_number;
+      	$formatted_phone = $this->format_phone_number($phone_number);
         if (!$formatted_phone) {
             wp_send_json(
                 array(
@@ -309,8 +309,9 @@ class AJAX extends Base {
         }
     }
 
-    private function format_phone_number($phone) {
-        $phone = preg_replace('/[\s\-\(\)]/', '', $phone);
+    public function format_phone_number($phone) {
+
+        $phone = preg_replace('/[\s\-\(\)\.]/', '', $phone);
 
         if (substr($phone, 0, 1) !== '+') {
             $phone = '+' . $phone;
