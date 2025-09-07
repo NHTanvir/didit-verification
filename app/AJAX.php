@@ -326,14 +326,14 @@ class AJAX extends Base {
 
     private function send_otp($phone_number) {
 
-		        wp_send_json(
-            array(
-                'type' => 'success',
-                'action' => 'otp_sent',
-                'msg' => 'OTP sent successfully to ' . $phone_number,
-                'show_otp_field' => true,
-            )
-        );
+		// wp_send_json(
+        //     array(
+        //         'type' => 'success',
+        //         'action' => 'otp_sent',
+        //         'msg' => 'OTP sent successfully to ' . $phone_number,
+        //         'show_otp_field' => true,
+        //     )
+        // );
         $body = array(
             'phone_number' => $phone_number,
             'options' => array(
@@ -381,15 +381,24 @@ class AJAX extends Base {
             );
         }
 
+        wp_send_json(
+            array(
+                'type' => 'success',
+                'action' => 'otp_sent',
+                'msg' => 'OTP sent successfully to ' . $phone_number,
+                'show_otp_field' => true,
+            )
+        );
 
     }
 
+
     private function verify_otp($phone_number, $otp_code) {
         // For testing - remove this return statement to use real API
-        return array(
-            'success' => true,
-            'message' => 'OTP verified successfully',
-        );
+        // return array(
+        //     'success' => true,
+        //     'message' => 'OTP verified successfully',
+        // );
         
         $body = array(
             'phone_number' => $phone_number,
@@ -430,6 +439,7 @@ class AJAX extends Base {
         }
 
         $error_message = isset($response_data['message']) ? $response_data['message'] : 'Invalid OTP';
+
         return array(
             'success' => false,
             'message' => $error_message,
