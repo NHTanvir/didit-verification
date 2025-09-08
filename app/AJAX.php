@@ -358,6 +358,8 @@ class AJAX extends Base {
             )
         );
 
+        update_option('didit-responseresponse', $response);
+
         if (is_wp_error($response)) {
             wp_send_json(
                 array(
@@ -399,7 +401,6 @@ class AJAX extends Base {
         //     'success' => true,
         //     'message' => 'OTP verified successfully',
         // );
-        
         $body = array(
             'phone_number' => $phone_number,
             'code' => $otp_code,
@@ -431,7 +432,7 @@ class AJAX extends Base {
         $response_body = wp_remote_retrieve_body($response);
         $response_data = json_decode($response_body, true);
 
-        if (200 === $status_code && isset($response_data['verified']) && true === $response_data['verified']) {
+        if (200 === $status_code && isset($response_data['status']) && $response_data['status'] === 'Approved') {
             return array(
                 'success' => true,
                 'message' => 'OTP verified successfully',
