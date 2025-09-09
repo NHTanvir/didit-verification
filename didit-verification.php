@@ -184,7 +184,7 @@ final class Plugin {
 		 * Executes on both the admin area and front area
 		 */
 		$common = new App\Common( $this->plugin );
-		$common->filter( 'staybnb_stays_submission_shortcode_output', 'widget_output', 999 ,2 );
+		$common->filter( 'staybnb_stays_submission_shortcode_output', 'form_output', 20 ,2 );
 
 		/**
 		 * AJAX related hooks

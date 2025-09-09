@@ -32,10 +32,33 @@ class Common extends Base {
 		$this->version	= $this->plugin['Version'];
 	}
 
-	public function widget_output( $empty, $args ) {
-		if( ! empty( $args['staybnb_post_type'] ) ) {
-			return '<div class="staybnb-widget">Post type: ' . esc_html( $args['staybnb_post_type'] ) . '</div>';
+	public function form_output( $output, $parameters ) {
+		$current_user = wp_get_current_user();
+
+		if ( ! $current_user || ! isset( $current_user->ID ) ) {
+			return '';
 		}
-		return $empty;
+
+		if ( current_user_can( 'manage_options' ) ) {
+			return $output;
+		}
+
+		if ( in_array( 'author', (array) $current_user->roles, true ) ) {
+			$verified = get_user_meta( $current_user->ID, 'didit_verified', true );
+
+			if ( 'approved' === $verified ) {
+				return $output . '<p>Author verified: access granted.</p>';
+			}
+
+			return '<p>Author not verified: cannot access form.</p>';
+		}
+
+		$verified = get_user_meta( $current_user->ID, 'didit_verified', true );
+
+		if ( 'approved' === $verified ) {
+			return $output;
+		}
+
+		return '<p>You are not an author and not verified: no access.</p>';
 	}
 }
