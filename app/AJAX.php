@@ -448,13 +448,15 @@ class AJAX extends Base {
     }
 
     public function didit_create_verification() {
-        $api_key     = Helper::get_option( 'didit-verification_basic', 'didit_api_key' );
-        $workflow_id = '54d514aa-37bf-44ca-9f5b-91c58b8fe037';
+        $api_key            = Helper::get_option( 'didit-verification_basic', 'didit_api_key' );
+        $workflow_id        = Helper::get_option( 'didit-verification_basic', 'didit_workflow_id' );
+        $add_listing_page   = Helper::get_option( 'didit-verification_basic', 'add_listing_page' );
+        $redirect_url       = get_permalink( $add_listing_page );
 
         $payload = array(
             'workflow_id' => $workflow_id,
             'vendor_data' => 'user-' . get_current_user_id(),
-            'callback'    => home_url( '/didit/callback/' ),
+            'callback'    => $redirect_url,
             'metadata'    => array(
                 'wp_user_id' => get_current_user_id(),
             ),
