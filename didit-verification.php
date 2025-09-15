@@ -133,10 +133,7 @@ final class Plugin {
 			 */
 			$admin = new App\Admin( $this->plugin );
 			$admin->activate( 'install' );
-			$admin->action( 'admin_footer', 'modal' );
 			$admin->action( 'plugins_loaded', 'i18n' );
-			$admin->action( 'admin_enqueue_scripts', 'enqueue_scripts' );
-			$admin->action( 'admin_footer_text', 'footer_text' );
 
 			/**
 			 * Settings related hooks

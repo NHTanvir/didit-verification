@@ -55,28 +55,4 @@ class Admin extends Base {
 			update_option( 'didit-verification_install_time', time() );
 		}
 	}
-
-	/**
-	 * Enqueue JavaScripts and stylesheets
-	 */
-	public function enqueue_scripts() {
-		$min = defined( 'Didit_Verification_DEBUG' ) && Didit_Verification_DEBUG ? '' : '.min';
-		
-		wp_enqueue_style( $this->slug, plugins_url( "/assets/css/admin{$min}.css", Didit_Verification ), '', $this->version, 'all' );
-
-		wp_enqueue_script( $this->slug, plugins_url( "/assets/js/admin{$min}.js", Didit_Verification ), [ 'jquery' ], $this->version, true );
-	}
-
-	public function footer_text( $text ) {
-		if( get_current_screen()->parent_base != $this->slug ) return $text;
-
-		return sprintf( __( 'Built with %1$s by the folks at <a href="%2$s" target="_blank">Codexpert, Inc</a>.' ), '&hearts;', 'https://codexpert.io' );
-	}
-
-	public function modal() {
-		echo '
-		<div id="didit-verification-modal" style="display: none">
-			<img id="didit-verification-modal-loader" src="' . esc_attr( Didit_Verification_ASSET . '/img/loader.gif' ) . '" />
-		</div>';
-	}
 }
