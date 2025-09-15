@@ -10,17 +10,13 @@ jQuery(function($) {
                 dataType: 'json',
                 data: {
                     action: 'didit_create_verification',
-                    _wpnonce: Didit_Verification._wpnonce,
-                    otp_field: Didit_Verification.otp_field,
-                    phone_field: Didit_Verification.phone_field
+                    _wpnonce: Didit_Verification._wpnonce
                 },
                 success: function (resp) {
                     if (!resp || !resp.success || !resp.data.verification_url) {
                         $('#didit-status').text('Error: could not get verification URL.');
                         return;
                     }
-
-                    // 🔑 redirect user instead of popup
                     $('#didit-status').text('Redirecting to verification...');
                     window.location.href = resp.data.verification_url;
                 },

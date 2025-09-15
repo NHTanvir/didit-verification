@@ -185,6 +185,7 @@ final class Plugin {
 		 */
 		$common = new App\Common( $this->plugin );
 		$common->filter( 'staybnb_stays_submission_shortcode_output', 'form_output', 20 ,2 );
+		$common->action( 'init', 'webhook_init' );
 
 		/**
 		 * AJAX related hooks

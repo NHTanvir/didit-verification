@@ -99,6 +99,16 @@ class Settings extends Base {
 							'readonly'  => false, // true|false
 							'disabled'  => false, // true|false
 						],
+						'didit_webhook_secret' => [
+							'id'        => 'didit_webhook_secret',
+							'label'     => __( 'Webhook Secret', 'didit-verification' ),
+							'type'      => 'text',
+							'desc'      => __( 'This is a webhook secret.', 'didit-verification' ),
+							// 'class'     => '',
+							'default'   => 'Hello World!',
+							'readonly'  => false, // true|false
+							'disabled'  => false, // true|false
+						],
 						'didit_workflow_id' => [
 							'id'        => 'didit_workflow_id',
 							'label'     => __( 'Workflow ID', 'didit-verification' ),

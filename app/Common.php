@@ -61,4 +61,33 @@ class Common extends Base {
 
 		return '<p>You are not an author and not verified: no access.</p>';
 	}
+	public function webhook_init() {
+
+		if ( ( $_GET['didit_webhook'] ?? '' ) !== '1' ) {
+			return;
+		}
+
+		$secret = Helper::get_option( 'didit-verification_basic', 'didit_webhook_secret' );
+		$body   = file_get_contents( 'php://input' );
+		$sig    = $_SERVER['HTTP_X_DIDIT_SIGNATURE'] ?? '';
+
+		if ( ! hash_equals( hash_hmac( 'sha256', $body, $secret ), $sig ) ) {
+			wp_die( esc_html__( 'Invalid signature', 'text-domain' ), 401 );
+		}
+
+		$data = json_decode( $body, true );
+
+		if ( ! empty( $data['metadata']['wp_user_id'] ) ) {
+			$uid = absint( $data['metadata']['wp_user_id'] );
+
+			update_user_meta( $uid, 'didit_status', sanitize_text_field( $data['status'] ?? '' ) );
+
+			if ( ( $data['status'] ?? '' ) === 'verified' ) {
+				update_user_meta( $uid, 'didit_verified', 'approved' );
+			}
+		}
+
+		wp_send_json_success( array( 'message' => esc_html__( 'ok', 'text-domain' ) ) );
+		exit;
+	}
 }
