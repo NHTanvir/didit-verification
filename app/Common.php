@@ -69,7 +69,7 @@ class Common extends Base {
 
 		$secret = Helper::get_option( 'didit-verification_basic', 'didit_webhook_secret' );
 		$body   = file_get_contents( 'php://input' );
-		$sig    = $_SERVER['HTTP_X_DIDIT_SIGNATURE'] ?? '';
+		$sig 	= $_SERVER['HTTP_X_SIGNATURE'] ?? '';
 
 		if ( ! hash_equals( hash_hmac( 'sha256', $body, $secret ), $sig ) ) {
 			wp_die( esc_html__( 'Invalid signature', 'text-domain' ), 401 );
