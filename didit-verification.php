@@ -163,20 +163,7 @@ final class Plugin {
 			$front->action( 'wp_footer', 'modal' );
 			$front->action( 'wp_enqueue_scripts', 'enqueue_scripts' );
 
-			/**
-			 * Shortcode related hooks
-			 */
-			$shortcode = new App\Shortcode( $this->plugin );
-			$shortcode->register( 'my_shortcode', 'my_shortcode' );
-
 		endif;
-
-		/**
-		 * Cron facing hooks
-		 */
-		$cron = new App\Cron( $this->plugin );
-		$cron->activate( 'install' );
-		$cron->deactivate( 'uninstall' );
 
 		/**
 		 * Common hooks

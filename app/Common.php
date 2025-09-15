@@ -47,7 +47,7 @@ class Common extends Base {
 			$verified = get_user_meta( $current_user->ID, 'didit_verified', true );
 
 			if ( 'approved' === $verified ) {
-				return $output . '<p>Author verified: access granted.</p>';
+				return $output;
 			}
 
 			return Helper::get_template( 'didit' );
