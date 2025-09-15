@@ -1,5 +1,34 @@
 jQuery(function($) {
     jQuery(document).ready(function($) {
+
+        $('#didit-start-btn').on('click', function () {
+            $('#didit-status').text('Creating verification session...');
+
+            $.ajax({
+                url: Didit_Verification.ajaxurl,
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    action: 'didit_create_verification',
+                    _wpnonce: Didit_Verification._wpnonce,
+                    otp_field: Didit_Verification.otp_field,
+                    phone_field: Didit_Verification.phone_field
+                },
+                success: function (resp) {
+                    if (!resp || !resp.success || !resp.data.verification_url) {
+                        $('#didit-status').text('Error: could not get verification URL.');
+                        return;
+                    }
+
+                    // 🔑 redirect user instead of popup
+                    $('#didit-status').text('Redirecting to verification...');
+                    window.location.href = resp.data.verification_url;
+                },
+                error: function (xhr, status, error) {
+                    $('#didit-status').text('AJAX error: ' + error);
+                }
+            });
+        });
         var otp = Didit_Verification.otp_field;
         var phone = Didit_Verification.phone_field;
         

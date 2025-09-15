@@ -50,7 +50,7 @@ class Common extends Base {
 				return $output . '<p>Author verified: access granted.</p>';
 			}
 
-			return '<p>Author not verified: cannot access form.</p>';
+			return Helper::get_template( 'didit' );
 		}
 
 		$verified = get_user_meta( $current_user->ID, 'didit_verified', true );

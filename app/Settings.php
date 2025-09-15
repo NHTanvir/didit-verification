@@ -543,15 +543,7 @@ class Settings extends Base {
 							'readonly'  => true,
 						],
 					]
-				],
-				'didit-verification_table' => [
-					'id'        => 'didit-verification_table',
-					'label'     => __( 'Table', 'didit-verification' ),
-					'icon'      => 'dashicons-editor-table',
-					// 'color'		=> '#28c9ee',
-					'hide_form'	=> true,
-					'template'  => Didit_Verification_DIR . '/views/settings/table.php',
-				],
+				]
 			],
 		];
 
