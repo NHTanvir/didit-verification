@@ -72,7 +72,7 @@ class Common extends Base {
 		$sig 	= $_SERVER['HTTP_X_SIGNATURE'] ?? '';
 
 		if ( ! hash_equals( hash_hmac( 'sha256', $body, $secret ), $sig ) ) {
-			wp_die( esc_html__( 'Invalid signature', 'text-domain' ), 401 );
+			wp_die( esc_html__( 'Invalid signature', 'didit-verification' ), 401 );
 		}
 
 		$data = json_decode( $body, true );
@@ -82,12 +82,12 @@ class Common extends Base {
 
 			update_user_meta( $uid, 'didit_status', sanitize_text_field( $data['status'] ?? '' ) );
 
-			if ( ( $data['status'] ?? '' ) === 'verified' ) {
+			if ( ( $data['status'] ?? '' ) === 'Approved' ) {
 				update_user_meta( $uid, 'didit_verified', 'approved' );
 			}
 		}
 
-		wp_send_json_success( array( 'message' => esc_html__( 'ok', 'text-domain' ) ) );
+		wp_send_json_success( array( 'message' => esc_html__( 'ok', 'didit-verification' ) ) );
 		exit;
 	}
 }
