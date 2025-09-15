@@ -191,6 +191,7 @@ final class Plugin {
 		 */
 		$ajax = new App\AJAX( $this->plugin );
 		$ajax->nopriv( 'cubewp_submit_user_register', 'cubewp_submit_user_register', 5 );
+		$ajax->priv( 'didit_create_verification', 'didit_create_verification' );
 	}
 
 	/**
