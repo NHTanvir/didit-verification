@@ -1,2 +1,7 @@
 
-<button id="didit-start-btn">Start verification</button><div id="didit-status">Author not verified: cannot access form.</div>
+<button id="didit-start-btn">
+    <?php _e('Start verification', 'didit-verification') ?>
+</button>
+<div id="didit-status">
+    <?php _e( 'Author not verified: no access.', 'didit-verification')  ?>
+</div>
