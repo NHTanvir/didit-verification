@@ -475,18 +475,16 @@ class AJAX extends Base {
         );
 
         if ( is_wp_error( $response ) ) {
-            wp_send_json_error(
-                array(
-                    'error' => $response->get_error_message(),
-                ),
-                500
-            );
+            wp_send_json_error( array( 'error' => $response->get_error_message() ), 500 );
         }
 
         $code = wp_remote_retrieve_response_code( $response );
         $body = json_decode( wp_remote_retrieve_body( $response ), true );
 
-        if ( $code >= 200 && $code < 300 && ! empty( $body['url'] ) ) {
+        if ( $code >= 200 && $code < 300 && ! empty( $body['url'] ) && ! empty( $body['id'] ) ) {
+     
+            update_user_meta( get_current_user_id(), 'didit_session_id', sanitize_text_field( $body['id'] ) );
+
             wp_send_json_success(
                 array(
                     'verification_url' => $body['url'],
@@ -495,9 +493,7 @@ class AJAX extends Base {
         }
 
         wp_send_json_error(
-            array(
-                'error' => __( 'Could not create Didit session.', 'text-domain' ),
-            ),
+            array( 'error' => __( 'Could not create Didit session.', 'text-domain' ) ),
             $code
         );
     }
